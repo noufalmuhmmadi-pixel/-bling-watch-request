@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Bling Luxury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1E2E29; --ink-deep:#131E1B; --ink-soft:#2C433B;
+  --gold:#C8A96A; --gold-light:#E6D3A4; --gold-deep:#A6884F;
+  --ivory:#F4EEE2; --paper:#FBF8F2; --line:#E3D6B8;
+  --muted:#6E7A72; --error:#A8321F;
+  --radius:16px; --radius-sm:10px; --touch:48px;
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{background:var(--ink-deep);scroll-behavior:smooth;overflow-x:hidden}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;color:var(--ink);overflow-x:hidden;position:relative;
+  font-family:"IBM Plex Sans Arabic","Jost","Segoe UI",Tahoma,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background:linear-gradient(180deg,var(--ink) 0%,var(--ink-deep) 62%);
+  min-height:100vh;
+  padding-bottom:calc(env(safe-area-inset-bottom,0px) + 24px);
+}
+html[lang=en] body{font-family:"Jost","IBM Plex Sans Arabic","Segoe UI",sans-serif}
+a{color:inherit}
+
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(700px 420px at 18% 8%, rgba(200,169,106,.10), transparent 60%),
+             radial-gradient(560px 380px at 88% 62%, rgba(200,169,106,.06), transparent 60%);
+  animation:wash 100s ease-in-out infinite alternate;
+}
+@keyframes wash{from{opacity:.7}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
+
+.demo-flag{
+  display:none;position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);inset-inline-end:8px;z-index:6;
+  background:var(--error);color:#fff;font:600 11px/1 "Jost",sans-serif;letter-spacing:.08em;
+  padding:6px 10px;border-radius:999px;
+}
+.demo-flag.show{display:block}
+
+.lang{
+  position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);inset-inline-start:16px;
+  direction:ltr;display:flex;border:1px solid rgba(200,169,106,.5);border-radius:999px;overflow:hidden;z-index:3;
+  backdrop-filter:blur(2px);
+}
+.lang button{
+  font:500 13px "Jost","IBM Plex Sans Arabic",sans-serif;letter-spacing:.06em;
+  background:transparent;color:var(--gold-light);border:0;padding:8px 15px;cursor:pointer;min-height:var(--touch);
+}
+.lang button[aria-pressed=true]{background:var(--gold);color:var(--ink-deep)}
+.lang button:focus-visible{outline:2px solid var(--gold-light);outline-offset:-3px}
+
+.hero{position:relative;text-align:center;overflow:hidden;z-index:1;
+  padding:calc(env(safe-area-inset-top,0px) + 90px) 22px 96px}
+
+.dialwrap{position:absolute;left:50%;top:42%;width:min(760px,190vw);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+.dial{position:absolute;inset:0;opacity:.30;animation:spin 240s linear infinite}
+.dial.inner{opacity:.22;animation-duration:170s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hand{position:absolute;left:50%;top:50%;transform-origin:50% 100%;background:linear-gradient(180deg,var(--gold),transparent);border-radius:2px}
+.hand.h1{width:2px;height:26%;margin-left:-1px;margin-top:-26%;opacity:.35;animation:spin 300s linear infinite}
+.hand.h2{width:1.5px;height:19%;margin-left:-.75px;margin-top:-19%;opacity:.28;animation:spin 90s linear infinite reverse}
+.sweep{
+  position:absolute;inset:-20%;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 0deg, transparent 0deg, rgba(200,169,106,.16) 8deg, transparent 26deg, transparent 360deg);
+  animation:spin 100s linear infinite;mix-blend-mode:screen;
+}
+@media (prefers-reduced-motion:reduce){.dial,.dial.inner,.hand,.sweep{animation:none}}
+
+.mark{position:relative;direction:ltr;margin:0;display:flex;justify-content:center;align-items:center;
+  font-family:"Jost",sans-serif;font-weight:600;color:#fff;
+  font-size:clamp(50px,15.5vw,88px);letter-spacing:.14em;line-height:1;padding-inline-start:.14em}
+.mark svg{width:.46em;height:.46em;margin:0 .07em 0 .02em;flex:none}
+.sub-mark{position:relative;direction:ltr;margin:15px 0 0;font:500 13px "Jost",sans-serif;letter-spacing:.68em;
+  color:var(--gold);padding-inline-start:.68em}
+.rule{position:relative;width:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto 0}
+h1.tagline{position:relative;margin:24px auto 0;max-width:340px;color:#fff;font-size:21px;font-weight:600;line-height:1.45}
+html[lang=en] h1.tagline{font-family:"Cormorant Garamond",serif;font-size:29px;font-weight:600}
+.hero-sub{position:relative;margin:10px auto 0;max-width:300px;color:var(--gold-light);font-size:14.5px;opacity:.85}
+
+main{max-width:560px;margin:-60px auto 0;padding:0 16px;position:relative;z-index:1}
+.card{
+  background:var(--paper);border-radius:var(--radius);padding:28px 22px 26px;
+  border:1px solid var(--gold);
+  box-shadow:0 0 0 1px rgba(200,169,106,.15),0 30px 70px rgba(0,0,0,.38);
+}
+
+.paths{display:grid;gap:12px}
+.path{
+  display:flex;align-items:center;gap:16px;text-align:start;width:100%;
+  padding:18px 16px;border-radius:var(--radius-sm);background:var(--ivory);
+  border:1.5px solid var(--line);font:inherit;color:var(--ink);cursor:pointer;
+  min-height:64px;transition:background .28s,border-color .28s,color .28s;
+}
+.path:hover{border-color:var(--gold)}
+.path svg{flex:none;width:30px;height:30px;color:var(--gold-deep);transition:color .28s}
+.path b{display:block;font-size:16.5px;font-weight:600}
+.path small{display:block;font-size:13px;opacity:.72;margin-top:2px}
+.check{margin-inline-start:auto;flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;transition:all .25s}
+.check svg{width:11px;height:11px;opacity:0;transform:scale(.5);transition:all .25s;color:var(--ink-deep)}
+.path[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--gold)}
+.path[aria-pressed=true] svg:not(.check svg){color:var(--gold-light)}
+.path[aria-pressed=true] .check{background:var(--gold);border-color:var(--gold)}
+.path[aria-pressed=true] .check svg{opacity:1;transform:scale(1);color:var(--ink-deep)}
+
+.progress{display:none;align-items:center;gap:10px;margin-top:22px}
+.progress.show{display:flex}
+.progress .track{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));transition:width .35s ease}
+.progress .num{font:600 12px "Jost",sans-serif;color:var(--gold-deep);letter-spacing:.05em;white-space:nowrap}
+
+form{margin-top:18px;display:none}
+form.show{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){form.show{animation:none}}
+
+.field{margin-bottom:21px;border:0;padding:0;min-width:0}
+label,legend{display:flex;align-items:center;gap:6px;font-weight:600;margin-bottom:8px;padding:0;font-size:15px;color:var(--ink)}
+label svg,legend svg{width:15px;height:15px;color:var(--gold-deep);flex:none}
+.opt{font-weight:400;color:var(--muted);font-size:13px}
+input[type=text],input[type=tel],select{
+  width:100%;min-height:var(--touch);padding:0 14px;font:inherit;font-size:16px;color:var(--ink);
+  background:#fff;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  appearance:none;-webkit-appearance:none;transition:border-color .2s;
+}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23C8A96A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+}
+html[dir=rtl] select{background-position:left 16px center;padding-left:40px}
+html[dir=ltr] select{background-position:right 16px center;padding-right:40px}
+input::placeholder{color:#A2AAA4}
+input:focus,select:focus{border-color:var(--gold)}
+input:focus-visible,select:focus-visible,.chip input:focus-visible+span,.path:focus-visible,.btn:focus-visible,.consent input:focus-visible,.photobtn:focus-visible{
+  outline:3px solid var(--gold);outline-offset:2px}
+input[dir=ltr]{text-align:start}
+html[dir=rtl] input[dir=ltr]{text-align:right}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;min-height:var(--touch);padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:14px;transition:all .2s}
+.chip input:checked+span{background:var(--ink);border-color:var(--gold);color:var(--gold-light)}
+.chip input:focus-visible+span{outline:3px solid var(--gold);outline-offset:2px}
+
+.hint{display:flex;gap:6px;margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.hint svg{width:13px;height:13px;flex:none;margin-top:2px;color:var(--gold-deep);opacity:.8}
+.brand-other{display:none;margin-top:10px;animation:fade .25s ease}
+.brand-other.show{display:block}
+
+.photos{border:1.5px dashed var(--line);border-radius:var(--radius-sm);padding:18px 16px;background:var(--ivory);text-align:center;transition:border-color .2s,background .2s}
+.photos.drag{border-color:var(--gold);background:#fff}
+.photos svg.camera{width:26px;height:26px;color:var(--gold-deep);margin-bottom:8px}
+.photobtn{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;
+  background:#fff;border:1.5px solid var(--gold);border-radius:999px;color:var(--ink);
+  font:inherit;font-weight:600;font-size:14px;cursor:pointer;
+}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+.thumb{position:relative;width:62px;height:62px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb button{
+  position:absolute;top:2px;inset-inline-end:2px;width:20px;height:20px;border-radius:50%;
+  background:rgba(19,30,27,.82);color:#fff;border:0;font-size:13px;line-height:1;cursor:pointer;
+}
+
+.consent{display:flex;gap:12px;align-items:flex-start;background:var(--ivory);padding:14px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:400;margin:0}
+.consent input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--ink)}
+.consent a{color:var(--ink);font-weight:600;text-decoration-color:var(--gold);text-underline-offset:3px}
+
+.err{display:none;color:var(--error);font-size:13px;margin:6px 0 0}
+.bad>.err{display:block}
+.bad input[type=text],.bad input[type=tel],.bad select{border-color:var(--error)}
+.bad legend,.bad>label{color:var(--error)}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;border:0;border-radius:var(--radius-sm);
+  background:linear-gradient(180deg,var(--gold-light) 0%,var(--gold) 55%,var(--gold-deep) 100%);color:var(--ink-deep);
+  font:inherit;font-weight:600;font-size:16px;cursor:pointer;text-decoration:none;
+  box-shadow:0 8px 20px rgba(166,136,79,.28);
+}
+html[lang=en] .btn{letter-spacing:.05em}
+.btn:hover{filter:brightness(1.04)}
+.btn[disabled]{opacity:.65;cursor:wait}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--gold);margin-top:10px;box-shadow:none}
+.spinner{width:17px;height:17px;border-radius:50%;border:2.5px solid rgba(19,30,27,.25);border-top-color:var(--ink-deep);animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spinner{animation:none}}
+
+.netmsg{display:none;background:#FBEAE7;border:1px solid var(--error);color:var(--error);border-radius:var(--radius-sm);padding:12px 14px;font-size:13.5px;margin-bottom:16px}
+.netmsg.show{display:block}
+
+.done{display:none;text-align:center;padding:8px 2px}
+.done.show{display:block;animation:fade .4s ease}
+.tick{width:72px;height:72px;border-radius:50%;background:var(--ink);border:1px solid var(--gold);margin:4px auto 18px;display:grid;place-items:center;box-shadow:0 10px 26px rgba(19,30,27,.25)}
+.tick svg{width:32px;height:32px}
+.tick path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw .6s .15s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.tick path{animation:none;stroke-dashoffset:0}}
+.done h2{margin:0 0 4px;font-size:22px;font-weight:600;color:var(--ink)}
+html[lang=en] .done h2{font-family:"Cormorant Garamond",serif;font-size:28px}
+.done p{color:var(--muted);margin:6px 0 8px;font-size:14.5px;max-width:340px;margin-inline:auto}
+.leadid{display:inline-block;margin:0 0 22px;font:600 12px "Jost",sans-serif;letter-spacing:.08em;color:var(--gold-deep);background:var(--ivory);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+
+.foot{position:relative;text-align:center;margin:26px 0 0;color:var(--gold);opacity:.65;font:500 11px "Jost",sans-serif;letter-spacing:.5em;padding-inline-start:.5em;direction:ltr;z-index:1}
+</style>
+</head>
+<body>
+
+<div class="demo-flag" id="demoFlag">DEMO — NOT SAVED</div>
+
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="ar" aria-pressed="true">عربي</button>
+  <button type="button" data-lang="en" aria-pressed="false">EN</button>
+</div>
+
+<header class="hero">
+  <div class="dialwrap" aria-hidden="true">
+    <svg class="dial" viewBox="0 0 400 400" fill="none" stroke="#C8A96A">
+      <circle cx="200" cy="200" r="196" stroke-width=".7"/>
+      <circle cx="200" cy="200" r="184" stroke-width="4" stroke-dasharray="1 18.6" opacity=".85"/>
+      <circle cx="200" cy="200" r="160" stroke-width=".5"/>
+      <circle cx="200" cy="200" r="120" stroke-width=".4" opacity=".6"/>
+    </svg>
+    <svg class="dial inner" viewBox="0 0 400 400" fill="none" stroke="#C8A96A">
+      <circle cx="200" cy="200" r="90" stroke-width=".5" opacity=".7"/>
+      <circle cx="200" cy="200" r="184" stroke-width="9" stroke-dasharray="1.4 95.6" transform="rotate(15 200 200)"/>
+    </svg>
+    <div class="hand h1"></div>
+    <div class="hand h2"></div>
+    <div class="sweep"></div>
+  </div>
+  <h1 class="mark" aria-label="BLING">
+    <span>BL</span>
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0C21.6 11.2 28.8 18.4 40 20 28.8 21.6 21.6 28.8 20 40 18.4 28.8 11.2 21.6 0 20 11.2 18.4 18.4 11.2 20 0Z" fill="#C8A96A"/></svg>
+    <span>NG</span>
+  </h1>
+  <p class="sub-mark">LUXURY</p>
+  <div class="rule"></div>
+  <h1 class="tagline" data-i="tagline"></h1>
+  <p class="hero-sub" data-i="heroSub"></p>
+</header>
+
+<main>
+  <section class="card">
+
+    <div id="step1">
+      <div class="paths" role="group">
+        <button type="button" class="path" data-path="own" aria-pressed="false">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="20" r="9"/><path d="M20 15v5l3 2M16 4h8l1 7M16 36h8l1-7"/></svg>
+          <span><b data-i="own"></b><small data-i="ownSub"></small></span>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></span>
+        </button>
+        <button type="button" class="path" data-path="seek" aria-pressed="false">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="17" r="9"/><path d="M24 24l10 10M17 13v4l2.5 1.5"/></svg>
+          <span><b data-i="seek"></b><small data-i="seekSub"></small></span>
+          <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></span>
+        </button>
+      </div>
+      <div class="progress" id="progress">
+        <span class="num" id="progNum">01/05</span>
+        <span class="track"><span class="fill" id="progFill"></span></span>
+      </div>
+    </div>
+
+    <p class="netmsg" id="netmsg" role="alert"></p>
+
+    <form id="form" novalidate>
+      <div class="field" id="f-brand">
+        <label for="brand" id="lbl-brand"></label>
+        <select id="brand"></select>
+        <div class="brand-other" id="brandOther"><input type="text" id="brandOtherInput"></div>
+        <p class="err" data-i="eBrand"></p>
+      </div>
+
+      <div class="field" id="f-model">
+        <label for="model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          <span data-i="model"></span> <span class="opt" data-i="optional"></span>
+        </label>
+        <input type="text" id="model" autocomplete="off">
+        <p class="hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+          <span id="modelHint"></span>
+        </p>
+      </div>
+
+      <fieldset class="field" id="f-cond" data-group>
+        <legend id="lbl-cond"></legend>
+        <div class="chips" id="condChips"></div>
+        <p class="err" data-i="eChoice"></p>
+      </fieldset>
+
+      <fieldset class="field own-only" id="f-goal" data-group>
+        <legend data-i="goal"></legend>
+        <div class="chips" id="goalChips"></div>
+        <p class="err" data-i="eChoice"></p>
+      </fieldset>
+
+      <div class="field seek-only" id="f-budget">
+        <label for="budget" data-i="budget"></label>
+        <select id="budget"></select>
+        <p class="err" data-i="eBudget"></p>
+      </div>
+
+      <fieldset class="field" id="f-when" data-group>
+        <legend id="lbl-when"></legend>
+        <div class="chips" id="whenChips"></div>
+        <p class="err" data-i="eChoice"></p>
+      </fieldset>
+
+      <div class="field own-only" id="f-price">
+        <label for="price"><span data-i="price"></span> <span class="opt" data-i="optional"></span></label>
+        <input type="text" id="price" inputmode="numeric">
+        <p class="hint"><span data-i="priceHint"></span></p>
+      </div>
+
+      <div class="field own-only" id="f-photos">
+        <label><span data-i="photos"></span> <span class="opt" data-i="optional"></span></label>
+        <div class="photos" id="photoZone">
+          <svg class="camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.2"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.2-2h5.6L16 6"/></svg><br>
+          <button type="button" class="photobtn" id="photoBtn"><span data-i="photosBtn"></span></button>
+          <input type="file" id="photoInput" accept="image/*" multiple hidden>
+          <p class="hint" style="justify-content:center" data-i="photosHint"></p>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+
+      <div class="field" id="f-phone">
+        <label for="phone" data-i="phone"></label>
+        <input type="tel" id="phone" dir="ltr" inputmode="tel" autocomplete="tel" placeholder="05XXXXXXXX">
+        <p class="hint"><span data-i="phoneHint"></span></p>
+        <p class="err" data-i="ePhone"></p>
+      </div>
+
+      <div class="field" id="f-consent">
+        <label class="consent">
+          <input type="checkbox" id="consent">
+          <span id="consentText"></span>
+        </label>
+        <p class="err" data-i="eConsent"></p>
+      </div>
+
+      <button class="btn" type="submit" id="submitBtn"><span id="submitLabel"></span></button>
+    </form>
+
+    <div class="done" id="done" role="status" aria-live="polite">
+      <div class="tick"><svg viewBox="0 0 40 40" fill="none" stroke="#C8A96A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21l8 8 14-16"/></svg></div>
+      <h2 data-i="doneTitle"></h2>
+      <p id="doneText"></p>
+      <p class="leadid" id="leadIdBadge" style="display:none"></p><br>
+      <a class="btn" id="appLink" href="#" target="_blank" rel="noopener" data-i="app" style="display:none"></a>
+      <button class="btn ghost" type="button" id="again" data-i="again"></button>
+    </div>
+  </section>
+  <p class="foot">BLING LUXURY</p>
+</main>
+
+<script>
+/* =====================================================================
+   CONFIG — الإعدادات التي يجب ضبطها قبل الاستخدام الفعلي عبر QR.
+   لا تحتوي هذه النسخة على أي Backend وهمي: ENDPOINT فارغ = وضع عرض تجريبي.
+   ===================================================================== */
+const CONFIG = {
+  APP_URL: "",        // رابط تحميل تطبيق Bling الحقيقي. فارغ = لا يظهر زر التحميل إطلاقًا.
+  PRIVACY_URL: "",    // رابط سياسة الخصوصية الرسمية. فارغ = نص الموافقة يظهر بدون رابط (لن نخترع رابطًا).
+  ENDPOINT: "",       // رابط الـ backend الحقيقي (Apps Script Web App / API) لحفظ الـ leads. فارغ = Demo Mode فقط.
+  PROMISE_HOURS: null,// مدة الرد الفعلية إن التزمت بها Bling (مثال: 48). null = لا وعد بمدة.
+  DEDUPE_MINUTES: 20  // منع تكرار نفس الطلب (نفس الجوال + الماركة + الموديل + نوع السجل) خلال هذه المدة فقط، وليس للأبد.
+};
+/* ===================================================================== */
+
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const form = $("#form"), step1 = $("#step1");
+let path = null, lang = "ar", isSubmitting = false, photos = [];
+
+if(!CONFIG.ENDPOINT) $("#demoFlag").classList.add("show");
+if(!CONFIG.APP_URL) $("#appLink").style.display = "none"; else { $("#appLink").style.display = ""; $("#appLink").href = CONFIG.APP_URL; }
+
+/* =====================================================================
+   TRACKING — أحداث قمع التحويل الأساسي: Scan(page_view) → Start → Complete → ...
+   ترسَل إلى window.dataLayer إن وُجد (GTM/GA4)، وإلا تبقى في console فقط.
+   لا نستخدم أي أداة تحليلات خارجية أو كوكيز بدون داعٍ من هذا الملف نفسه.
+   ===================================================================== */
+const qp = new URLSearchParams(location.search);
+const ATTR = {
+  source:   qp.get("src") || "direct",
+  campaign: qp.get("campaign") || "",
+  placement:qp.get("placement") || ""
+};
+function trackEvent(name, extra){
+  const payload = {event:name, ...ATTR, ...(extra||{})};
+  try{ window.dataLayer && window.dataLayer.push(payload); }catch(e){}
+  console.log("[bling:event]", name, payload);
+}
+trackEvent("page_view");
+
+const interacted = new Set();
+form.addEventListener("focusin", e => {
+  const f = e.target.closest(".field");
+  if(f && f.id && !interacted.has(f.id)){ interacted.add(f.id); trackEvent("field_interaction", {field:f.id, path}); }
+});
+
+/* ---- خيارات القوائم — القيمة المخزّنة عربية دائمًا لتوحيد قاعدة البيانات، والعرض حسب اللغة ---- */
+const O = {
+  condOwn:[["جديدة","New"],["ممتازة","Excellent"],["جيدة","Good"],["مستعملة بحالة مقبولة","Used, fair condition"],["أحتاج إلى تقييم حالتها","I need it assessed"]],
+  condSeek:[["جديدة فقط","New only"],["مستعملة بحالة ممتازة","Pre-owned, excellent"],["مستعملة","Pre-owned"],["لا يهم","Any condition"]],
+  goal:[["معرفة القيمة","I want to know its value"],["قد أبيع إذا كان السعر مناسبًا","I might sell for the right price"],["أريد البيع الآن","I want to sell now"]],
+  whenOwn:[["الآن","Now"],["خلال شهر","Within a month"],["خلال 3 أشهر","Within 3 months"],["لاحقًا","Later"]],
+  whenSeek:[["الآن","Now"],["خلال شهر","Within a month"],["خلال 3 أشهر","Within 3 months"],["أبحث فقط حاليًا","Just browsing"]],
+  budget:[["أقل من 10,000 ريال","Under SAR 10,000"],["10,000 – 25,000 ريال","SAR 10,000 – 25,000"],["25,000 – 50,000 ريال","SAR 25,000 – 50,000"],["50,000 – 100,000 ريال","SAR 50,000 – 100,000"],["أكثر من 100,000 ريال","Over SAR 100,000"],["أفضل عدم التحديد","Prefer not to say"]]
+};
+const BRANDS = [["Rolex","رولكس"],["Patek Philippe","باتيك فيليب"],["Audemars Piguet","أوديمار بيغيه"],["Omega","أوميغا"],["Cartier","كارتييه"],["Richard Mille","ريتشارد ميل"],["Vacheron Constantin","فاشرون كونستانتين"],["Hublot","هوبلو"],["IWC","آي دبليو سي"],["Jaeger-LeCoultre","جيجر لوكولتر"],["Tudor","تيودور"],["Panerai","بانيراي"],["Breitling","برايتلينغ"],["TAG Heuer","تاغ هوير"],["A. Lange & Söhne","لانغه آند زونه"]];
+
+const T = {
+  ar:{
+    tagline:"قيّم ساعتك أو ابحث عن ساعتك القادمة",
+    heroSub:"أخبرنا بما تبحث عنه أو بما تملكه، وسنساعدك في الخطوة التالية.",
+    own:"أملك ساعة", ownSub:"اعرف قيمتها أو ابدأ بيعها",
+    seek:"أبحث عن ساعة", seekSub:"أخبرنا بما تريد وسنساعدك في العثور عليها",
+    brandOwn:"ما ماركة الساعة التي تملكها؟", brandSeek:"ما ماركة الساعة التي تبحث عنها؟",
+    brandPh:"اختر الماركة", other:"أخرى", otherPh:"اكتب اسم الماركة",
+    model:"الموديل أو الرقم المرجعي", modelPh:"مثال: Submariner 126610LN",
+    modelHintOwn:"الرقم المرجعي يساعدنا على تحديد ساعتك بدقة أكبر. إن لم تعرفه يمكنك المتابعة بدون مشكلة.",
+    modelHintSeek:"كتابة الرقم المرجعي تسرّع عثورنا على طلبك، وليست ضرورية.",
+    condOwn:"ما حالة الساعة؟", condSeek:"ما الحالة التي تقبلها؟",
+    goal:"ماذا تريد؟",
+    budget:"ما الميزانية التقريبية؟", budgetPh:"اختر النطاق",
+    whenOwn:"متى؟", whenSeek:"متى ترغب بالشراء؟",
+    price:"كم السعر الذي تتوقعه؟", optional:"(اختياري)", pricePh:"بالريال السعودي",
+    priceHint:"يساعدنا على مطابقة ساعتك مع المشتري المناسب.",
+    photos:"صور الساعة", photosBtn:"إضافة صور", photosHint:"صورة أمامية، خلفية، الرقم المرجعي، أو العلبة والأوراق إن وجدت.",
+    phone:"رقم الجوال", phoneHint:"سنستخدم رقمك فقط للتواصل بشأن طلبك أو تطابق مناسب.",
+    consentBase:"أوافق على تواصل Bling معي بشأن طلبي، وعلى استخدام بياناتي لتقديم الخدمة وتحسينها",
+    consentPolicy:"وفق سياسة الخصوصية",
+    submit:"إرسال الطلب", sending:"جارٍ الإرسال…",
+    eBrand:"اختر الماركة.", eChoice:"اختر أحد الخيارات.",
+    eBudget:"اختر الميزانية.", ePhone:"تحقق من رقم الجوال وأكمل الحقول المطلوبة.", eConsent:"الموافقة مطلوبة لإرسال الطلب.",
+    doneTitle:"تم استلام طلبك",
+    doneText:"شكرًا لاهتمامك بـ Bling. راجعنا طلبك وسنتواصل معك عند توفر الخطوة المناسبة.",
+    doneTextHours:"شكرًا لاهتمامك بـ Bling. راجعنا طلبك وسنتواصل معك خلال HOURS ساعة.",
+    app:"تحميل تطبيق Bling", again:"إرسال طلب آخر",
+    netfail:"تعذر إرسال طلبك. تحقق من الاتصال وحاول مرة أخرى.",
+    leadRef:"رقم الطلب"
+  },
+  en:{
+    tagline:"Value your watch, or find your next one",
+    heroSub:"Tell us what you're looking for or what you own, and we'll take it from there.",
+    own:"I own a watch", ownSub:"Learn its value or start selling",
+    seek:"I'm looking for a watch", seekSub:"Tell us what you want and we'll help you find it",
+    brandOwn:"Which brand is your watch?", brandSeek:"Which brand are you looking for?",
+    brandPh:"Select a brand", other:"Other", otherPh:"Enter the brand name",
+    model:"Model or reference number", modelPh:"e.g. Submariner 126610LN",
+    modelHintOwn:"The reference number helps us identify your watch precisely. If you don't know it, you can continue.",
+    modelHintSeek:"Adding the reference number speeds up finding your watch, but it's not required.",
+    condOwn:"What is its condition?", condSeek:"Which condition would you accept?",
+    goal:"What would you like to do?",
+    budget:"What is your approximate budget?", budgetPh:"Select a range",
+    whenOwn:"When?", whenSeek:"When are you looking to buy?",
+    price:"What price do you expect?", optional:"(optional)", pricePh:"In Saudi riyals",
+    priceHint:"This helps us match your watch with the right buyer.",
+    photos:"Photos of the watch", photosBtn:"Add photos", photosHint:"Front, back, reference number, or box and papers if available.",
+    phone:"Mobile number", phoneHint:"We'll only use your number to contact you about your request or a suitable match.",
+    consentBase:"I agree to be contacted by Bling regarding my request, and to the use of my data to provide and improve the service",
+    consentPolicy:"per the Privacy Policy",
+    submit:"Submit request", sending:"Sending…",
+    eBrand:"Select a brand.", eChoice:"Choose one option.",
+    eBudget:"Select a budget.", ePhone:"Check your mobile number and complete the required fields.", eConsent:"Consent is required to submit.",
+    doneTitle:"Request received",
+    doneText:"Thank you for your interest in Bling. We've received your request and will reach out when there's a good next step.",
+    doneTextHours:"Thank you for your interest in Bling. We've received your request and will reach out within HOURS hours.",
+    app:"Download the Bling app", again:"Submit another request",
+    netfail:"We couldn't send your request. Check your connection and try again.",
+    leadRef:"Reference"
+  }
+};
+
+function fill(sel, list, ph){
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${ph}</option>` + list.map(o => `<option value="${o[0]}">${o[lang==="ar"?0:1]}</option>`).join("");
+  sel.value = cur;
+}
+function chips(el, name, list){
+  const cur = ($(`input:checked`, el)||{}).value;
+  el.innerHTML = list.map(o => `<label class="chip"><input type="radio" name="${name}" value="${o[0]}"${o[0]===cur?" checked":""}><span>${o[lang==="ar"?0:1]}</span></label>`).join("");
+}
+
+function reqFieldsFor(p){
+  return p==="own"
+    ? [()=>!!$("#brand").value && !($("#brand").value==="other" && !$("#brandOtherInput").value.trim()),
+       ()=>!!$("#f-cond input:checked"),
+       ()=>!!$("#f-goal input:checked"),
+       ()=>!!$("#f-when input:checked"),
+       ()=>phoneOk($("#phone").value) ]
+    : [()=>!!$("#brand").value && !($("#brand").value==="other" && !$("#brandOtherInput").value.trim()),
+       ()=>!!$("#f-cond input:checked"),
+       ()=>!!$("#budget").value,
+       ()=>!!$("#f-when input:checked"),
+       ()=>phoneOk($("#phone").value) ];
+}
+function updateProgress(){
+  if(!path) return;
+  const fns = reqFieldsFor(path);
+  const done = fns.filter(f=>f()).length;
+  $("#progFill").style.width = (done/fns.length*100)+"%";
+  $("#progNum").textContent = String(done).padStart(2,"0")+"/"+String(fns.length).padStart(2,"0");
+}
+
+function render(){
+  const t = T[lang], p = path||"own";
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang==="ar" ? "rtl" : "ltr";
+  $$("[data-i]").forEach(e => { if(t[e.dataset.i]!==undefined) e.textContent = t[e.dataset.i]; });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang===lang));
+  $("#lbl-brand").textContent = p==="own" ? t.brandOwn : t.brandSeek;
+  $("#lbl-cond").textContent  = p==="own" ? t.condOwn  : t.condSeek;
+  $("#lbl-when").textContent  = p==="own" ? t.whenOwn  : t.whenSeek;
+  $("#modelHint").textContent = p==="own" ? t.modelHintOwn : t.modelHintSeek;
+  const bs = $("#brand"), cur = bs.value;
+  bs.innerHTML = `<option value="">${t.brandPh}</option>` +
+    BRANDS.map(b => `<option value="${b[0]}">${lang==="ar" ? b[0]+" — "+b[1] : b[0]}</option>`).join("") +
+    `<option value="other">${t.other}</option>`;
+  bs.value = cur;
+  fill($("#budget"), O.budget, t.budgetPh);
+  chips($("#condChips"),"condition", p==="own"?O.condOwn:O.condSeek);
+  chips($("#goalChips"),"goal", O.goal);
+  chips($("#whenChips"),"when", p==="own"?O.whenOwn:O.whenSeek);
+  $("#brandOtherInput").placeholder = t.otherPh;
+  $("#model").placeholder = t.modelPh;
+  $("#price").placeholder = t.pricePh;
+  if(!isSubmitting) $("#submitLabel").textContent = t.submit;
+  $$(".own-only").forEach(e => e.hidden = p!=="own");
+  $$(".seek-only").forEach(e => e.hidden = p!=="seek");
+  $("#consentText").innerHTML = CONFIG.PRIVACY_URL
+    ? `${t.consentBase} <a href="${CONFIG.PRIVACY_URL}" target="_blank" rel="noopener">${t.consentPolicy}</a>.`
+    : `${t.consentBase}.`;
+  updateProgress();
+}
+
+function setPath(p){
+  path = p;
+  $$(".path").forEach(b => b.setAttribute("aria-pressed", b.dataset.path===p));
+  form.reset(); $("#brandOther").classList.remove("show");
+  photos = []; renderThumbs(); interacted.clear();
+  $$(".bad").forEach(e => e.classList.remove("bad"));
+  render();
+  form.classList.add("show");
+  $("#progress").classList.add("show");
+  trackEvent("path_selected", {path:p});
+  trackEvent("form_start", {path:p});
+  setTimeout(() => form.scrollIntoView({behavior:"smooth", block:"start"}), 50);
+}
+
+$$(".path").forEach(b => b.addEventListener("click", () => setPath(b.dataset.path)));
+$$(".lang button").forEach(b => b.addEventListener("click", () => { lang = b.dataset.lang; render(); }));
+$("#brand").addEventListener("change", e => { $("#brandOther").classList.toggle("show", e.target.value==="other"); updateProgress(); });
+form.addEventListener("input", () => { $("#netmsg").classList.remove("show"); updateProgress(); });
+form.addEventListener("change", updateProgress);
+$$("input,select").forEach(el => el.addEventListener("input", () => { const f = el.closest(".field"); if(f) f.classList.remove("bad"); }));
+
+/* =====================================================================
+   PHOTO HANDLING
+   - اختياري بالكامل، حتى 4 صور، تصغير محلي عبر canvas قبل أي إرسال.
+   - تُرسل حاليًا كـ base64 داخل الحمولة (payload.photos) لتسهيل الاختبار في Demo Mode فقط.
+   - عند ربط Backend حقيقي: الأفضل استبدال هذا برفع كل صورة إلى Storage/Drive
+     والاحتفاظ فقط بروابطها في payload.photo_urls، مع إبقاء payload.photo_count كما هو دائمًا.
+   ===================================================================== */
+const zone = $("#photoZone");
+$("#photoBtn").addEventListener("click", () => $("#photoInput").click());
+$("#photoInput").addEventListener("change", e => addFiles(e.target.files));
+["dragover","dragenter"].forEach(ev => zone.addEventListener(ev, e => { e.preventDefault(); zone.classList.add("drag"); }));
+["dragleave","drop"].forEach(ev => zone.addEventListener(ev, e => { e.preventDefault(); zone.classList.remove("drag"); }));
+zone.addEventListener("drop", e => addFiles(e.dataTransfer.files));
+
+async function addFiles(fileList){
+  const files = [...fileList].filter(f=>f.type.startsWith("image/")).slice(0, 4 - photos.length);
+  for(const file of files){ try{ photos.push(await downscale(file)); trackEvent("photo_added", {path, count:photos.length}); }catch(err){} }
+  renderThumbs();
+  $("#photoInput").value = "";
+}
+function downscale(file){
+  return new Promise((resolve, reject) => {
+    const img = new Image(); const reader = new FileReader();
+    reader.onload = () => { img.onload = () => {
+      const max = 1000, r = Math.min(1, max/Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = img.width*r; c.height = img.height*r;
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      resolve(c.toDataURL("image/jpeg", .7)); // جودة معتدلة لتقليل حجم الحمولة
+    }; img.onerror = reject; img.src = reader.result; };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function renderThumbs(){
+  $("#thumbs").innerHTML = photos.map((src,i) =>
+    `<div class="thumb"><img src="${src}" alt=""><button type="button" data-i="${i}" aria-label="remove">×</button></div>`).join("");
+  $$("#thumbs button").forEach(b => b.addEventListener("click", () => { photos.splice(+b.dataset.i,1); renderThumbs(); }));
+  $("#photoBtn").style.display = photos.length>=4 ? "none" : "";
+}
+
+/* ---- الجوال: قبول 05 / +966 / 00966 / 966 / أرقام عربية، وتوحيدها إلى 05XXXXXXXX ---- */
+function normPhone(v){
+  let d = (v||"").replace(/[\s\-()]/g,"").replace(/[٠-٩]/g, c => "٠١٢٣٤٥٦٧٨٩".indexOf(c));
+  if(d.startsWith("+966")) d = "0"+d.slice(4);
+  else if(d.startsWith("00966")) d = "0"+d.slice(5);
+  else if(d.startsWith("966")) d = "0"+d.slice(3);
+  return d;
+}
+const phoneOk = v => /^05\d{8}$/.test(normPhone(v));
+
+function validate(){
+  let ok = true, first = null;
+  const mark = (id, bad) => { const el = $(id); el.classList.toggle("bad", bad); if(bad){ ok = false; first = first || el; } };
+  const b = $("#brand").value;
+  mark("#f-brand", !b || (b==="other" && !$("#brandOtherInput").value.trim()));
+  mark("#f-cond", !$("#f-cond input:checked"));
+  if(path==="own") mark("#f-goal", !$("#f-goal input:checked"));
+  if(path==="seek") mark("#f-budget", !$("#budget").value);
+  mark("#f-when", !$("#f-when input:checked"));
+  mark("#f-phone", !phoneOk($("#phone").value));
+  mark("#f-consent", !$("#consent").checked);
+  if(first) first.scrollIntoView({behavior:"smooth", block:"center"});
+  return ok;
+}
+
+/* =====================================================================
+   INTENT SCORING — طبقة تحليلية مساعدة فقط، وليست حكمًا نهائيًا على العميل.
+   الهدف: ترتيب أولوية المتابعة الداخلية، لا استبعاد أي عميل تلقائيًا.
+   الأوزان معتدلة ومقصودة: "الآن" وحدها لا تكفي لإعطاء Score مرتفع جدًا.
+   القيم الخام (timing/model/goal/budget/price/photos) تبقى محفوظة كاملة في
+   السجل، بحيث يمكن تغيير المعادلة لاحقًا دون فقد أي بيانات سابقة.
+   ===================================================================== */
+function computeIntent(ctx){
+  let score = 0;
+  // التوقيت — إشارة مهمة لكنها ليست الوحيدة (حد أقصى 34 من 100)
+  if(ctx.timing==="الآن") score += 34;
+  else if(ctx.timing==="خلال شهر") score += 22;
+  else if(ctx.timing==="خلال 3 أشهر") score += 12;
+  // وجود موديل/مرجع دقيق
+  if(ctx.model) score += 14;
+  // الماركة معروفة (وليست "أخرى") — إشارة اكتمال بيانات
+  if(ctx.brand && ctx.brand!=="") score += 6;
+  if(ctx.path==="own"){
+    if(ctx.goal==="أريد البيع الآن") score += 20;
+    else if(ctx.goal==="قد أبيع إذا كان السعر مناسبًا") score += 9;
+    if(ctx.price) score += 10;
+    if(ctx.photosCount>0) score += 10;
+    if(ctx.condition && ctx.condition!=="أحتاج إلى تقييم حالتها") score += 6;
+  } else {
+    if(ctx.budget && ctx.budget!=="أفضل عدم التحديد") score += 20;
+    if(ctx.condition && ctx.condition!=="لا يهم") score += 6;
+  }
+  score = Math.max(0, Math.min(100, score));
+  const label = score>=55 ? "حار" : score>=28 ? "دافئ" : "فضولي";
+  return {label, score};
+}
+
+/* =====================================================================
+   LEAD ID — معرّف فريد لكل طلب ناجح، غير مبني على رقم الجوال.
+   ===================================================================== */
+function genLeadId(){
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // بدون أحرف/أرقام متشابهة بصريًا
+  let s = "";
+  for(let i=0;i<8;i++) s += chars[Math.floor(Math.random()*chars.length)];
+  return "BLG-"+s;
+}
+
+/* =====================================================================
+   DUPLICATE PREVENTION — محدود بزمن (CONFIG.DEDUPE_MINUTES)، وليس دائمًا.
+   المفتاح: الجوال + الماركة + الموديل + نوع السجل. بعد انتهاء المدة
+   يمكن للعميل نفسه إرسال طلب جديد بلا أي عائق.
+   ===================================================================== */
+function dupKeyFor(phone, brand, model, recordType){
+  return "bling_dedupe_" + btoa(unescape(encodeURIComponent([phone,brand,model,recordType].join("|")))).slice(0,40);
+}
+function isDuplicate(key){
+  const raw = localStorage.getItem(key);
+  if(!raw) return false;
+  const ts = parseInt(raw, 10);
+  if(!ts) return false;
+  return (Date.now() - ts) < CONFIG.DEDUPE_MINUTES*60*1000;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  if(isSubmitting) return;
+  if(!validate()) return;
+
+  const val = n => ($(`input[name=${n}]:checked`)||{}).value || "";
+  const brand = $("#brand").value==="other" ? $("#brandOtherInput").value.trim() : $("#brand").value;
+  const model = $("#model").value.trim();
+  const timing = val("when");
+  const phone = normPhone($("#phone").value);
+  const condition = val("condition");
+  const price = path==="own" ? $("#price").value.trim() : "";
+  const budget = path==="seek" ? $("#budget").value : "";
+  const goal = path==="own" ? val("goal") : "شراء";
+  const recordType = path==="own" ? "عرض" : "طلب";
+
+  const dupKey = dupKeyFor(phone, brand, model, recordType);
+  if(isDuplicate(dupKey)){
+    // نفس الطلب أُرسل مؤخرًا خلال نافزة DEDUPE_MINUTES — نعرض شاشة الاستلام دون إرسال مكرر للخادم
+    showDone(null);
+    return;
+  }
+
+  const intent = computeIntent({timing, model, path, goal, price, budget, condition, brand, photosCount:photos.length});
+  const leadId = genLeadId();
+
+  trackEvent("form_submit_attempt", {path, leadId});
+
+  /* =====================================================================
+     PAYLOAD — بنية جاهزة لـ Market Guide: مصدر → عرض/طلب → تأهيل → نية →
+     متابعة → تطابق → نتيجة. أسماء حقول إنجليزية ثابتة تسهّل ربطها لاحقًا
+     بأي جدول بيانات أو Backend دون تعديل الواجهة.
+     ملاحظة: model و reference يعرضان نفس القيمة حاليًا لأن الواجهة تستخدم
+     حقلًا واحدًا مدمجًا (الموديل أو الرقم المرجعي) تفاديًا لإطالة النموذج؛
+     يمكن فصلهما مستقبلًا بإضافة حقل مستقل إن احتاج التحليل لذلك.
+     ===================================================================== */
+  const record = {
+    lead_id: leadId,
+    record_type: recordType,          // "عرض" (seller) أو "طلب" (buyer)
+    source: ATTR.source,               // tiktok / instagram / boutique / exhibition / x / direct / qr ...
+    campaign: ATTR.campaign,
+    placement: ATTR.placement,
+    created_at: new Date().toISOString(),
+    language: lang,
+    brand: brand,
+    model: model,
+    reference: model,                  // انظر الملاحظة أعلاه
+    condition: condition,
+    goal: goal,
+    timing: timing,
+    expected_price: price,
+    budget: budget,
+    phone: phone,
+    consent: true,
+    intent_label: intent.label,        // فضولي / دافئ / حار — طبقة تحليلية مساعدة فقط
+    intent_score: intent.score,        // 0–100
+    qualification: "غير مُقيّم",        // مؤهل / يحتاج مراجعة / غير مؤهل — يُحدَّد لاحقًا من فريق العمليات، وليس من الكود
+    funnel_stage: "form_completed",    // scan(page_view) < form_started < form_completed < qualified < high_intent < contacted < matched < transaction
+    follow_up_status: "",              // يُحدَّث لاحقًا من فريق المبيعات
+    match_status: "",                  // matched / not_matched
+    outcome: "",                       // transaction / no_offer / no_demand / other
+    stop_reason: "",                   // السعر / الموديل غير متوفر / لم يستجب البائع ... إلخ
+    photo_count: photos.length,
+    photos: photos                     // base64 مؤقتًا (Demo/اختبار) — استبدليها بـ photo_urls عند ربط Storage حقيقي
+  };
+
+  isSubmitting = true;
+  const btn = $("#submitBtn");
+  btn.disabled = true;
+  $("#submitLabel").innerHTML = `<span class="spinner"></span> ${T[lang].sending}`;
+  $("#netmsg").classList.remove("show");
+
+  /* =====================================================================
+     ENDPOINT — لا يوجد Backend افتراضي. إن كان CONFIG.ENDPOINT فارغًا نعمل
+     في Demo Mode: نعرض "تم الاستلام" لكن دون حفظ فعلي (والشارة الحمراء
+     أعلى الصفحة توضح ذلك). عند ربط Backend حقيقي: تُرسل الحمولة كاملة عبر
+     POST، ولا تُمسح بيانات النموذج ولا تظهر شاشة النجاح إلا بعد تأكد
+     الاستجابة، وأي خطأ شبكة يُعرض برسالة واضحة للمستخدم مع إبقاء الحقول كما هي.
+     ===================================================================== */
+  try{
+    if(CONFIG.ENDPOINT){
+      const res = await fetch(CONFIG.ENDPOINT, {
+        method:"POST",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body: JSON.stringify(record)
+      });
+      if(res && res.ok === false) throw new Error("save_failed");
+    } else {
+      await new Promise(r => setTimeout(r, 450));
+      console.log("[bling:demo] لم يُحفظ شيء فعليًا — لا يوجد ENDPOINT. السجل المُعدّ للإرسال:", record);
+    }
+    localStorage.setItem(dupKey, String(Date.now()));
+    trackEvent("form_submit_success", {path, leadId, intent:intent.label, score:intent.score});
+    showDone(leadId);
+  }catch(err){
+    trackEvent("form_submit_error", {path, leadId, message:String(err)});
+    $("#netmsg").textContent = T[lang].netfail;
+    $("#netmsg").classList.add("show");
+    $("#netmsg").scrollIntoView({behavior:"smooth", block:"center"});
+  }finally{
+    isSubmitting = false;
+    btn.disabled = false;
+    $("#submitLabel").textContent = T[lang].submit;
+  }
+});
+
+function showDone(leadId){
+  const t = T[lang];
+  $("#doneText").textContent = CONFIG.PROMISE_HOURS
+    ? t.doneTextHours.replace("HOURS", CONFIG.PROMISE_HOURS)
+    : t.doneText;
+  if(leadId){ $("#leadIdBadge").style.display = "inline-block"; $("#leadIdBadge").textContent = t.leadRef+": "+leadId; }
+  else { $("#leadIdBadge").style.display = "none"; }
+  form.classList.remove("show"); step1.style.display = "none"; $("#progress").classList.remove("show");
+  $("#done").classList.add("show");
+  $("#done").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+$("#again").addEventListener("click", () => {
+  $("#done").classList.remove("show"); step1.style.display = "";
+  form.reset(); form.classList.remove("show"); path = null; photos = []; renderThumbs();
+  $$(".path").forEach(b => b.setAttribute("aria-pressed","false"));
+  render(); window.scrollTo({top:0, behavior:"smooth"});
+});
+
+render();
+</script>
+</body>
+</html>
